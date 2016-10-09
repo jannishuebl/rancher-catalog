@@ -15,7 +15,7 @@ flocker-control-service:
         net: host
         volumes:
             - /etc/flocker
-            - /var/lib/flocker # XXX need to persist this somewhere
+            - /var/lib/flocker
         links:
             - flocker-certificate-service
 
