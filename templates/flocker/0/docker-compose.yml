@@ -2,9 +2,9 @@ flocker-certificate-service:
     labels:
         io.rancher.sidekicks: flocker-control-volume
         io.rancher.scheduler.affinity:host_label: master=true
-     image: clusterhq/flocker-certificate-service:latest
-     net: host
-     volumes:
+    image: clusterhq/flocker-certificate-service:latest
+    net: host
+    volumes:
          - /var/lib/flocker:/var/lib/flocker
 
 flocker-control-service:
