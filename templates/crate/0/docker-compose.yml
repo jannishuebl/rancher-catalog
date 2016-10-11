@@ -16,12 +16,12 @@ crate-datavolume-node:
     - /usr/share/crate/config
     - /opt/rancher/bin
   entrypoint: /bin/true
-  image: crate:0.5.0
+  image: crate:0.55
 crate-base-node:
   labels:
     crate.node.config.version: '0'
     io.rancher.container.hostname_override: container_name
-  image: crate:0.5.0
+  image: crate:0.55
   entrypoint:
     - /opt/rancher/bin/run.sh
   volumes_from:
