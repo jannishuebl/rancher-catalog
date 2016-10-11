@@ -16,7 +16,7 @@ crate-datavolume-node:
     - /data
     - /usr/share/crate/config
     - /opt/rancher/bin
-  entrypoint: /bin/sleep 10
+  entrypoint: /bin/sh /opt/rancher/bin/run.sh
   image: crate:latest
 crate-base-node:
   labels:
