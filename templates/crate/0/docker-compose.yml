@@ -26,4 +26,6 @@ crate-base-node:
     - /opt/rancher/bin/run.sh
   volumes_from:
     - crate-datavolume-node
+  ports:
+    - "4200:4200"
   net: "container:crate-nodes"
