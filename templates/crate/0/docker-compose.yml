@@ -24,7 +24,7 @@ crate-base-node:
     io.rancher.container.hostname_override: container_name
   image: crate:0.55
   entrypoint:
-    - /bin/bash
+    - sh
   volumes_from:
     - crate-datavolume-node
   ports:
