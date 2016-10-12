@@ -14,7 +14,7 @@ crate-datavolume-node:
     io.rancher.container.start_once: true
   volumes:
     - /usr/share/crate/config
-    - /usr/share/crate/data
+    - /usr/share/crate/data/crate
     - /opt/rancher/bin
   entrypoint: /bin/sleep 10
   image: crate:latest
