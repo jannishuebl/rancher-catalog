@@ -29,4 +29,4 @@ crate-base-node:
       - 4300
   volumes_from:
     - crate-datavolume-node
-  network_mode: "container:crate-nodes"
+  net: "container:crate-nodes"
