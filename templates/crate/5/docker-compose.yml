@@ -28,19 +28,13 @@ crate-base-node:
       - 4200
       - 4300
   volumes_from:
-    - crate-datavolume-node
+      - crate-datavolume-node
   net: "container:crate-nodes"
-
-crate:
+lb:
   expose:
-     - 4200:4200
-     - 4300:4300/tcp
+      - 4200:4200
+      - 80:4200
+      - 4300:4300/tcp
   image: rancher/load-balancer-service
   links:
-    - crate-nodes:crate-nodes
-  env:
-    VIRTUAL_HOST: "crate.thecookingneighbor.com" 
-    VIRTUAL_PORT: "4200" 
-    LETSENCRYPT_HOST: "crate.thecookingneighbor.com"
-    LETSENCRYPT_EMAIL: "jannis.huebl@gmail.com"
-
+      - crate-nodes:crate-nodes
