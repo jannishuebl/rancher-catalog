@@ -7,9 +7,8 @@
   maintainer: "Alexis Ducastel <alexis@ducastel.net>"
   uuid: openvpn-ldap-0
   questions:
-      
     - variable: "AUTH_USER_HASH"
-    description: "Hash with user password, ex: {\"jannishuebl\": \"somelongtoken\"} "
+      description: "Hash with user password, ex: {\"jannishuebl\": \"somelongtoken\"} "
       label: "Auth Hash:"
       required: true
       default: "{\"admin\": \"admin\"}"
