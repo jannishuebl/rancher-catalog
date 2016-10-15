@@ -2,17 +2,17 @@
   name: OpenVPN Rancher
   version: 1.0-0
   description: |
-    OpenVPN for Rancher with "Rancher local" authentication.
+    OpenVPN for Rancher with "local" authentication.
   minimum_rancher_version: v0.56.0
   maintainer: "Alexis Ducastel <alexis@ducastel.net>"
   uuid: openvpn-ldap-0
   questions:
       
-    - variable: "AUTH_RANCHERLOCAL_URL"
-      description: "Rancher server URL, ex: http[s]://hostname[:port]"
-      label: "Rancher URL :"
+    - variable: "AUTH_USER_HASH"
+    description: "Hash with user password, ex: {\"jannishuebl\": \"somelongtoken\"} "
+      label: "Auth Hash:"
       required: true
-      default: "http[s]://hostname[:port]"
+      default: "{\"admin\": \"admin\"}"
       type: "string"
   
     - variable: "REMOTE_IP"
