@@ -41,6 +41,8 @@ pg1:
         - NODE_NAME=node2
         - CLUSTER_NODE_NETWORK_NAME=pg1 # (default: hostanme of the node)
         - REPLICATION_UPSTREAM_NODE_ID=1
+        - REPLICATION_USER=${replication_user} # default is replication_user
+        - REPLICATION_PASSWORD=${replication_pass} # default is replication_pass
     expose:
         - 5432
 pg2:
@@ -56,6 +58,8 @@ pg2:
         - NODE_NAME=node3
         - CLUSTER_NODE_NETWORK_NAME=pg2 # (default: hostanme of the node)
         - REPLICATION_UPSTREAM_NODE_ID=2
+        - REPLICATION_USER=${replication_user} # default is replication_user
+        - REPLICATION_PASSWORD=${replication_pass} # default is replication_pass
     expose:
         - 5432
 pg3:
@@ -71,6 +75,8 @@ pg3:
         - NODE_NAME=node4
         - CLUSTER_NODE_NETWORK_NAME=pg3 # (default: hostanme of the node)
         - REPLICATION_UPSTREAM_NODE_ID=3
+        - REPLICATION_USER=${replication_user} # default is replication_user
+        - REPLICATION_PASSWORD=${replication_pass} # default is replication_pass
     expose:
         - 5432
 pgpool:
