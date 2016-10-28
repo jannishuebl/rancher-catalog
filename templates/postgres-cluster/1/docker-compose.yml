@@ -94,8 +94,10 @@ pgpool:
         - PCP_USER=${pcp_user}
         - PCP_PASSWORD=${pcp_pass}
 
-        - REPLICATION_USER=${replication_user}
-        - REPLICATION_PASSWORD=${replication_pass}
+        - CLUSTER_NAME=${cluster_name} # default is pg_cluster
+        - REPLICATION_DB=replication_db # default is replication_db
+        - REPLICATION_USER=${replication_user} # default is replication_user
+        - REPLICATION_PASSWORD=${replication_pass} # default is replication_pass
 
         - DB_USERS=${monkey_user}:${monkey_pass} # in format user:password[,user:password[...]]
         - BACKENDS="0:pgmaster:5432:1:/var/lib/postgresql/data:ALLOW_TO_FAILOVER,1:pg1::::,2:pg2::::,3:pg3::::"
