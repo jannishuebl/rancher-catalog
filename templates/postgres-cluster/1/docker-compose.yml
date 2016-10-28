@@ -1,5 +1,7 @@
 pgmaster:
     image: paunin/postgresql-cluster-pgsql
+    labels: 
+        - io.rancher.container.start_once: true
     volumes:
         - "cluster-archives:/var/cluster_archive"
     environment:
@@ -9,67 +11,80 @@ pgmaster:
         - CLUSTER_NODE_NETWORK_NAME=pgmaster # (default: hostanme of the node)
 
         #database we want to use for application
-        - POSTGRES_PASSWORD=monkey_pass
-        - POSTGRES_USER=monkey_user
-        - POSTGRES_DB=monkey_db
+        - POSTGRES_PASSWORD=${monkey_pass}
+        - POSTGRES_USER=${monkey_user}
+        - POSTGRES_DB=${monkey_db}
 
-        - CONFIGS="listen_addresses:'*'"
+        - CONFIGS=listen_addresses:'*'
                               # in format variable1:value1[,variable2:value2[,...]]
                               # used for pgpool.conf file
 
 
 
         #defaults:
-         - CLUSTER_NAME=pg_cluster # default is pg_cluster
-         - REPLICATION_DB=replication_db # default is replication_db
-         - REPLICATION_USER=replication_user # default is replication_user
-         - REPLICATION_PASSWORD=replication_pass # default is replication_pass
+        - CLUSTER_NAME=${cluster_name} # default is pg_cluster
+        - REPLICATION_DB=replication_db # default is replication_db
+        - REPLICATION_USER=${replication_user} # default is replication_user
+        - REPLICATION_PASSWORD=${replication_pass} # default is replication_pass
     expose:
         - 5432
-pgslave1:
+pg1:
+    labels:
+        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg2
+        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg3
     image: paunin/postgresql-cluster-pgsql
-    depends_on:
-        - pgmaster
     volumes:
         - "cluster-archives:/var/cluster_archive"
     environment:
         - REPLICATION_PRIMARY_HOST=pgmaster
         - NODE_ID=2
         - NODE_NAME=node2
-        - CLUSTER_NODE_NETWORK_NAME=pgslave1 # (default: hostanme of the node)
+        - CLUSTER_NODE_NETWORK_NAME=pg1 # (default: hostanme of the node)
         - REPLICATION_UPSTREAM_NODE_ID=1
     expose:
         - 5432
-
-pgslave3:
+pg2:
+    labels:
+        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg1
+        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg3
     image: paunin/postgresql-cluster-pgsql
-    depends_on:
-        - pgmaster
+    volumes:
+        - "cluster-archives:/var/cluster_archive"
+    environment:
+        - REPLICATION_PRIMARY_HOST=pgmaster
+        - NODE_ID=3
+        - NODE_NAME=node3
+        - CLUSTER_NODE_NETWORK_NAME=pg2 # (default: hostanme of the node)
+        - REPLICATION_UPSTREAM_NODE_ID=2
+    expose:
+        - 5432
+pg3:
+    labels:
+        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg1
+        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg2
+    image: paunin/postgresql-cluster-pgsql
     volumes:
         - "cluster-archives:/var/cluster_archive"
     environment:
         - REPLICATION_PRIMARY_HOST=pgmaster
         - NODE_ID=4
         - NODE_NAME=node4
-        - CLUSTER_NODE_NETWORK_NAME=pgslave3 # (default: hostanme of the node)
-        - REPLICATION_UPSTREAM_NODE_ID=1
+        - CLUSTER_NODE_NETWORK_NAME=pg3 # (default: hostanme of the node)
+        - REPLICATION_UPSTREAM_NODE_ID=3
     expose:
         - 5432
+
 pgpool:
     image: paunin/postgresql-cluster-pgpool
-    depends_on:
-        - pgmaster
-        - pgslave1
-        - pgslave2
     environment:
-        - PCP_USER=pcp_user
-        - PCP_PASSWORD=pcp_pass
+        - PCP_USER=${pcp_user}
+        - PCP_PASSWORD=${pcp_pass}
 
-        - REPLICATION_USER=replication_user
-        - REPLICATION_PASSWORD=replication_pass
+        - REPLICATION_USER=${replication_user}
+        - REPLICATION_PASSWORD=${replication_pass}
 
-        - DB_USERS=monkey_user:monkey_pass # in format user:password[,user:password[...]]
-        - BACKENDS="0:pgmaster:5432:1:/var/lib/postgresql/data:ALLOW_TO_FAILOVER,1:pgslave1::::,2:pgslave2::::,3:pgslave3- ::::"
+        - DB_USERS=${monkey_user}:${monkey_pass} # in format user:password[,user:password[...]]
+        - BACKENDS="0:pgmaster:5432:1:/var/lib/postgresql/data:ALLOW_TO_FAILOVER,1:pg1::::,2:pg2::::,3:pg3- ::::"
                   # in format num=ost:port:weight:data_directory:flag[,...]
                   # defaults:
                   #   port: 5432
