@@ -73,7 +73,6 @@ pg3:
         - REPLICATION_UPSTREAM_NODE_ID=3
     expose:
         - 5432
-
 pgpool:
     image: paunin/postgresql-cluster-pgpool
     environment:
