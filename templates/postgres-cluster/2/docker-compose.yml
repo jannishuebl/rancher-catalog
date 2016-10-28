@@ -6,7 +6,6 @@ pg1:
     volumes:
         - "cluster-archives:/var/cluster_archive"
     environment:
-        - INITIAL_NODE_TYPE=master 
         - NODE_ID=1 # Integer number of node
         - NODE_NAME=node1 # Node name
         - CLUSTER_NODE_NETWORK_NAME=pg1 # (default: hostanme of the node)

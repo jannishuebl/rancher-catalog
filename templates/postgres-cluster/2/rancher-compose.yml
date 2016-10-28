@@ -1,6 +1,6 @@
 .catalog:
   name: "Postgres HA"
-  version: "0.0.1-rancher1-setup"
+  version: "0.0.1-rancher1"
   description: "Postgres HA"
   uuid: postgres-ha-0
   questions:
