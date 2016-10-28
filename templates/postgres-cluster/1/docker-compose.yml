@@ -1,7 +1,7 @@
 pgmaster:
     image: paunin/postgresql-cluster-pgsql
     labels: 
-        - io.rancher.container.start_once: true
+        io.rancher.container.start_once: true
     volumes:
         - "cluster-archives:/var/cluster_archive"
     environment:
@@ -30,8 +30,8 @@ pgmaster:
         - 5432
 pg1:
     labels:
-        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg2
-        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg3
+        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg2
+        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg3
     image: paunin/postgresql-cluster-pgsql
     volumes:
         - "cluster-archives:/var/cluster_archive"
@@ -45,8 +45,8 @@ pg1:
         - 5432
 pg2:
     labels:
-        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg1
-        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg3
+        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg1
+        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg3
     image: paunin/postgresql-cluster-pgsql
     volumes:
         - "cluster-archives:/var/cluster_archive"
@@ -60,8 +60,8 @@ pg2:
         - 5432
 pg3:
     labels:
-        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg1
-        - io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg2
+        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg1
+        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/pg2
     image: paunin/postgresql-cluster-pgsql
     volumes:
         - "cluster-archives:/var/cluster_archive"
