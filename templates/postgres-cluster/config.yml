@@ -1,0 +1,5 @@
+name: Postgresql HA
+description: |
+    Postgresql HA setup
+version: 2.2.2-rancher1
+category: databases
