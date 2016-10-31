@@ -1,5 +1,5 @@
 stolon-sentinel:
-    image: jannishuebl/stolon
+    image: jannishuebl/stolon:0.0.1
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     environment:
@@ -14,7 +14,7 @@ stolon-sentinel:
     expose: 
         - 6431
 stolon-keeper:
-    image: jannishuebl/stolon
+    image: jannishuebl/stolon:0.0.1
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     environment:
@@ -36,7 +36,7 @@ stolon-keeper:
         - 5431
         - 5432
 stolon-proxy:
-    image: jannishuebl/stolon
+    image: jannishuebl/stolon:0.0.1
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     environment:
