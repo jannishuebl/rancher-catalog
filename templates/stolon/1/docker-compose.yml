@@ -28,7 +28,7 @@ stolon-keeper:
         - STKEEPER_PG_REPL_PASSWORD=${replpassword}
         - STKEEPER_PG_SU_USERNAME=${username}
         - STKEEPER_PG_SU_PASSWORD=${password}
-    volumns:
+    volumes:
         - pg_data/stolon-data
     expose: 
         - 5431
