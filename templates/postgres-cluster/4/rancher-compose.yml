@@ -1,0 +1,46 @@
+.catalog:
+  name: "Postgres HA"
+  version: "0.0.1-rancher1-setup"
+  description: "Postgres HA"
+  uuid: postgres-ha-0
+  questions:
+    - variable: "cluster_name"
+      description: "Name for cluster"
+      label: "Cluster name"
+      type: "string"
+      required: true
+    - variable: "monkey_pass"
+      description: "Password for database"
+      label: "Database Password"
+      type: "string"
+      required: true
+    - variable: "monkey_user"
+      description: "User for database"
+      label: "Database User"
+      type: "string"
+      required: true
+    - variable: "monkey_db"
+      description: "Name for database"
+      label: "Database Name"
+      type: "string"
+      required: true
+    - variable: "replication_pass"
+      description: "Password for replication_db"
+      label: "Replication_db Password"
+      type: "string"
+      required: true
+    - variable: "replication_user"
+      description: "User for replication_db"
+      label: "Replication_db User"
+      type: "string"
+      required: true
+    - variable: "pcp_user"
+      description: "User for pcp"
+      label: "pcp User"
+      type: "string"
+      required: true
+    - variable: "pcp_pass"
+      description: "Password for pcp"
+      label: "pcp Password"
+      type: "string"
+      required: true

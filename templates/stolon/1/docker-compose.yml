@@ -1,0 +1,49 @@
+stolon-sentinel:
+    image: sorintlab/stolon:master
+    labels:
+        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    environment:
+        - SENTINEL=true
+        - STSENTINEL_DISCOVERY_TYPE=store
+        - STSENTINEL_CLUSTER_NAME=${stack_name}
+        - STSENTINEL_STORE_BACKEND=etcd
+        - STSENTINEL_STORE_ENDPOINTS=${etcd_entpoint}
+          # Enable debugging
+        - STSENTINEL_DEBUG=true
+    expose: 
+        - 6431
+stolon-keeper:
+    image: sorintlab/stolon:master
+    labels:
+        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    environment:
+        - KEEPER=true
+        - STKEEPER_DISCOVERY_TYPE=store
+        - STKEEPER_CLUSTER_NAME=${stack_name}
+        - STKEEPER_STORE_BACKEND=etcd
+        - STKEEPER_STORE_ENDPOINTS=${etcd_entpoint}
+          # Enable debugging
+        - STKEEPER_DEBUG=true
+        - STKEEPER_PG_REPL_USERNAME=repluser
+        - STKEEPER_PG_REPL_PASSWORD=${replpassword}
+        - STKEEPER_PG_SU_USERNAME=${username}
+        - STKEEPER_PG_SU_PASSWORD=${password}
+    volumns:
+        - pg_data/stolon-data
+    expose: 
+        - 5431
+        - 5432
+stolon-proxy:
+    image: sorintlab/stolon:master
+    labels:
+        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    environment:
+        - PROXY=true
+        - STPROXY_DISCOVERY_TYPE=store
+        - STPROXY_CLUSTER_NAME=${stack_name}
+        - STPROXY_STORE_BACKEND=etcd
+        - STPROXY_STORE_ENDPOINTS=${etcd_entpoint}
+          # Enable debugging
+        - STPROXY_DEBUG=true
+    expose: 
+        - 5432

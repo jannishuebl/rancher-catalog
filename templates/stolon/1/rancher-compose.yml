@@ -1,0 +1,26 @@
+.catalog:
+  name: "Stolon Postgres Cluster"
+  version: "2.2.2-rancher"
+  description: "Stolon Postgres Cluster"
+  questions:
+    - variable: etcd_entpoint
+      label: "ETCD Entpoint"
+      type: "string"
+      required: true
+      default: "etcd:2793"
+    - variable: "replpassword"
+      label: "Password for repluser"
+      description: "Unique secret passwrd"
+      type: "string"
+      default: "sonarte23f13fsk"
+      required: true
+    - variable: "username"
+      label: "Username for database"
+      type: "string"
+      default: "postgres"
+      required: true
+    - variable: "passwrd"
+      label: "Password for user"
+      type: "string"
+      default: "postgres"
+      required: true
