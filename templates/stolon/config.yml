@@ -1,0 +1,5 @@
+name: Stolon Postgres Cluster
+description: |
+  Stolon Postgres Cluster
+version: 2.2.2-rancher1
+category: databases
