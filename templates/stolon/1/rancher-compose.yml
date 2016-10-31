@@ -24,7 +24,7 @@
       type: "string"
       default: "postgres"
       required: true
-    - variable: "passwrd"
+    - variable: "password"
       label: "Password for user"
       type: "string"
       default: "postgres"
