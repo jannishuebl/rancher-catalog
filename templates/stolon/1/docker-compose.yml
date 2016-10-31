@@ -1,5 +1,5 @@
 stolon-sentinel:
-    image: sorintlab/stolon:master
+    image: jannishuebl/stolon
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     environment:
@@ -10,10 +10,11 @@ stolon-sentinel:
         - STSENTINEL_STORE_ENDPOINTS=${etcd_entpoint}
           # Enable debugging
         - STSENTINEL_DEBUG=true
+        - CONTAINER_LISTEN_IP=*
     expose: 
         - 6431
 stolon-keeper:
-    image: sorintlab/stolon:master
+    image: jannishuebl/stolon
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     environment:
@@ -28,13 +29,14 @@ stolon-keeper:
         - STKEEPER_PG_REPL_PASSWORD=${replpassword}
         - STKEEPER_PG_SU_USERNAME=${username}
         - STKEEPER_PG_SU_PASSWORD=${password}
+        - CONTAINER_LISTEN_IP=*
     volumes:
         - pg_data:/stolon-data
     expose: 
         - 5431
         - 5432
 stolon-proxy:
-    image: sorintlab/stolon:master
+    image: jannishuebl/stolon
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     environment:
@@ -45,5 +47,6 @@ stolon-proxy:
         - STPROXY_STORE_ENDPOINTS=${etcd_entpoint}
           # Enable debugging
         - STPROXY_DEBUG=true
+        - CONTAINER_LISTEN_IP=*
     expose: 
         - 5432
