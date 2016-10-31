@@ -3,6 +3,11 @@
   version: "2.2.2-rancher"
   description: "Stolon Postgres Cluster"
   questions:
+    - variable: cluster_name
+      label: "Cluster name"
+      type: "string"
+      required: true
+      default: "stolon-cluster"
     - variable: etcd_entpoint
       label: "ETCD Entpoint"
       type: "string"

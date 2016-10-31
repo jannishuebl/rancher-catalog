@@ -5,7 +5,7 @@ stolon-sentinel:
     environment:
         - SENTINEL=true
         - STSENTINEL_DISCOVERY_TYPE=store
-        - STSENTINEL_CLUSTER_NAME=${stack_name}
+        - STSENTINEL_CLUSTER_NAME=${cluster_name}
         - STSENTINEL_STORE_BACKEND=etcd
         - STSENTINEL_STORE_ENDPOINTS=${etcd_entpoint}
           # Enable debugging
@@ -19,7 +19,7 @@ stolon-keeper:
     environment:
         - KEEPER=true
         - STKEEPER_DISCOVERY_TYPE=store
-        - STKEEPER_CLUSTER_NAME=${stack_name}
+        - STKEEPER_CLUSTER_NAME=${cluster_name}
         - STKEEPER_STORE_BACKEND=etcd
         - STKEEPER_STORE_ENDPOINTS=${etcd_entpoint}
           # Enable debugging
@@ -40,7 +40,7 @@ stolon-proxy:
     environment:
         - PROXY=true
         - STPROXY_DISCOVERY_TYPE=store
-        - STPROXY_CLUSTER_NAME=${stack_name}
+        - STPROXY_CLUSTER_NAME=${cluster_name}
         - STPROXY_STORE_BACKEND=etcd
         - STPROXY_STORE_ENDPOINTS=${etcd_entpoint}
           # Enable debugging
