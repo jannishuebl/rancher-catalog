@@ -1,4 +1,4 @@
-stolon-sentinel:
+sentinel:
     image: jannishuebl/rancher-stolon:0.0.1
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -11,7 +11,7 @@ stolon-sentinel:
         - STKEEPER_DEBUG=${enable_debug}
     expose: 
         - 6431
-stolon-keeper:
+keeper:
     image: jannishuebl/rancher-stolon:0.0.1
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -31,7 +31,7 @@ stolon-keeper:
     expose: 
         - 5431
         - 5432
-stolon-proxy:
+proxy:
     image: jannishuebl/rancher-stolon:0.0.1
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -44,3 +44,7 @@ stolon-proxy:
         - STKEEPER_DEBUG=${enable_debug}
     expose: 
         - 5432
+postgres:
+    image: rancher/dns-service
+    links:
+        - proxy
