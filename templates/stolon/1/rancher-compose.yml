@@ -12,7 +12,7 @@
       label: "ETCD Entpoint"
       type: "string"
       required: true
-      default: "etcd:2793"
+      default: "etcd.etcd:2379"
     - variable: "replpassword"
       label: "Password for repluser"
       description: "Unique secret passwrd"
