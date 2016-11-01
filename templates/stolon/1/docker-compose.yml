@@ -1,5 +1,5 @@
 stolon-sentinel:
-    image: jannishuebl/stolon:0.0.1
+    image: jannishuebl/rancher-stolon:0.0.1
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     environment:
@@ -8,13 +8,11 @@ stolon-sentinel:
         - STSENTINEL_CLUSTER_NAME=${cluster_name}
         - STSENTINEL_STORE_BACKEND=etcd
         - STSENTINEL_STORE_ENDPOINTS=${etcd_entpoint}
-          # Enable debugging
-        - STSENTINEL_DEBUG=true
-        - CONTAINER_LISTEN_IP=*
+        - STKEEPER_DEBUG=${enable_debug}
     expose: 
         - 6431
 stolon-keeper:
-    image: jannishuebl/stolon:0.0.1
+    image: jannishuebl/rancher-stolon:0.0.1
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     environment:
@@ -23,20 +21,18 @@ stolon-keeper:
         - STKEEPER_CLUSTER_NAME=${cluster_name}
         - STKEEPER_STORE_BACKEND=etcd
         - STKEEPER_STORE_ENDPOINTS=${etcd_entpoint}
-          # Enable debugging
-        - STKEEPER_DEBUG=true
+        - STKEEPER_DEBUG=${enable_debug}
         - STKEEPER_PG_REPL_USERNAME=repluser
         - STKEEPER_PG_REPL_PASSWORD=${replpassword}
         - STKEEPER_PG_SU_USERNAME=${username}
         - STKEEPER_PG_SU_PASSWORD=${password}
-        - CONTAINER_LISTEN_IP=*
     volumes:
         - pg_data:/stolon-data
     expose: 
         - 5431
         - 5432
 stolon-proxy:
-    image: jannishuebl/stolon:0.0.1
+    image: jannishuebl/rancher-stolon:0.0.1
     labels:
         io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     environment:
@@ -45,8 +41,6 @@ stolon-proxy:
         - STPROXY_CLUSTER_NAME=${cluster_name}
         - STPROXY_STORE_BACKEND=etcd
         - STPROXY_STORE_ENDPOINTS=${etcd_entpoint}
-          # Enable debugging
-        - STPROXY_DEBUG=true
-        - CONTAINER_LISTEN_IP=*
+        - STKEEPER_DEBUG=${enable_debug}
     expose: 
         - 5432

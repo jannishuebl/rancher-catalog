@@ -29,3 +29,11 @@
       type: "string"
       default: "postgres"
       required: true
+    - variable: "enable_debug"
+      label: "Enable debuging?"
+      default: "false"
+      required: true 
+      type: "enum"
+      options:
+      - "true"
+      - "false"
