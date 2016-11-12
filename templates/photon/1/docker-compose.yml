@@ -1,0 +1,19 @@
+photon:
+    labels:
+        io.rancher.container.pull_image: always
+    expose:
+        - 2322
+    memswap_limit: 8388608000
+    entrypoint:
+        - /bin/sh
+        - start.sh
+    image: jannishuebl/photon:0.0.2
+    volumes:
+        - /photon/photon_data
+    mem_limit: 4291456000
+lb:
+  expose:
+      - 80:2322
+  image: rancher/load-balancer-service
+  links:
+      - photon
